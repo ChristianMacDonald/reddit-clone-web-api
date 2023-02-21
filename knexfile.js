@@ -10,7 +10,7 @@ module.exports = {
       password: 'xXPh3n0mXx'
     },
     migrations: {
-      directory: './database/migration'
+      directory: './database/migrations'
     },
     seeds: {
       directory: './database/seeds'
