@@ -1,12 +1,18 @@
 const express = require('express');
 const router = express.Router();
 
-const { usersModel } = require('../models');
+const { usersModel: { findUserByUsername } } = require('../models');
 
-router.get('/', async (req, res) => {
+router.get('/:username', async (req, res) => {
   try {
-    let users = await usersModel.findAll();
-    res.status(200).json(users);
+    let { username } = req.params;
+    let user = await findUserByUsername(username);
+
+    if (!user) {
+      res.status(404).json({ message: `Could not find user with username ${username}` });
+    }
+
+    res.status(200).json(user);
   } catch (e) {
     res.status(500).json({ error: e });
   }
