@@ -5,7 +5,7 @@
 exports.up = function(knex) {
   return knex.schema.createTable('users', table => {
     table.uuid('id').primary().defaultTo(knex.raw('uuid_generate_v4()'));
-    table.string('username');
+    table.string('username').unique();
     table.string('password');
   });
 };

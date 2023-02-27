@@ -4,24 +4,29 @@ function findAllPonds() {
   return db('ponds');
 }
 
+function findPondByID(id) {
+  return db('ponds').where({ id }).first();
+}
+
 function findPondByName(name) {
   return db('ponds').where({ name }).first();
 }
 
 function createPond(pond) {
-  return db('ponds').insert(pond, ['id', 'name', 'description']);
+  return db('ponds').insert(pond, ['id']);
 }
 
 function updatePondByName(name, pond) {
-  return db('ponds').where({ name }).update(pond, ['id', 'name', 'description']);
+  return db('ponds').where({ name }).update(pond);
 }
 
 function deletePondByName(name) {
-  return db('ponds').where({ name }).del(['id', 'name', 'description']);
+  return db('ponds').where({ name }).del();
 }
 
 module.exports = {
   findAllPonds,
+  findPondByID,
   findPondByName,
   createPond,
   updatePondByName,

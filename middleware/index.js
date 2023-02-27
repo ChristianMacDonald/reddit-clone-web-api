@@ -1,13 +1,19 @@
 const hashPassword = require('./hashPassword');
-const validateLoginAttempt = require('./validateLoginAttempt');
-const validateRegisterAttempt = require('./validateRegisterAttempt');
+const validate = require('./validate');
 const verifyPasswordMatches = require('./verifyPasswordMatches');
+const verifyPondExists = require('./verifyPondExists');
+const verifyPostExists = require('./verifyPostExists')
+const verifyTokenIsValid = require('./verifyTokenIsValid');
+const verifyTokenOwnerExists = require('./verifyTokenOwnerExists');
 const verifyUserExists = require('./verifyUserExists');
 
 module.exports = {
   hashPassword,
-  validateLoginAttempt,
-  validateRegisterAttempt,
+  validate,
   verifyPasswordMatches,
+  verifyPondExists,
+  verifyPostExists,
+  verifyTokenIsValid,
+  verifyTokenOwnerExists,
   verifyUserExists
 };
