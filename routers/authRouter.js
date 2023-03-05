@@ -5,16 +5,32 @@ const {
   hashPassword,
   validate,
   verifyPasswordMatches,
+  verifyTokenIsValid,
   verifyUserExists
 } = require('../middleware');
 
 const {
   usersModel: {
-    createUser
+    createUser,
+    findUserByUsername
   }
 } = require('../models');
 
 const router = express.Router();
+
+router.get(
+  '/token-owner',
+  verifyTokenIsValid,
+  async (req, res) => {
+    try {
+      let { username } = req.tokenPayload;
+      let user = await findUserByUsername(username);
+      res.status(200).json(user); 
+    } catch (error) {
+      res.status(500).json({ error })
+    }
+  }
+);
 
 router.post(
   '/login',
