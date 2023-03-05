@@ -16,8 +16,6 @@ const {
 
 const router = express.Router();
 
-router.use(verifyTokenIsValid);
-
 router.get(
   '/',
   async (req, res) => {
@@ -44,6 +42,7 @@ router.get(
 
 router.put(
   '/:id',
+  verifyTokenIsValid,
   verifyPostExists,
   async (req, res) => {
     try {
@@ -62,6 +61,7 @@ router.put(
 
 router.delete(
   '/:id',
+  verifyTokenIsValid,
   verifyPostExists,
   async (req, res) => {
     try {
