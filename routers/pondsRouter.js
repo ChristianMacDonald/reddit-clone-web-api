@@ -25,8 +25,6 @@ const {
 
 const router = express.Router();
 
-router.use(verifyTokenIsValid);
-
 router.get(
   '/',
   async (req, res) => {
@@ -62,6 +60,7 @@ router.get(
 
 router.post(
   '/',
+  verifyTokenIsValid,
   validate('name'),
   async (req, res) => {
     try {
@@ -76,6 +75,7 @@ router.post(
 
 router.post(
   '/:name/posts',
+  verifyTokenIsValid,
   verifyTokenOwnerExists,
   verifyPondExists,
   validate('title', 'content'),
@@ -101,6 +101,7 @@ router.post(
 
 router.put(
   '/:name',
+  verifyTokenIsValid,
   verifyPondExists,
   async (req, res) => {
     try {
@@ -119,6 +120,7 @@ router.put(
 
 router.delete(
   '/:name',
+  verifyTokenIsValid,
   verifyPondExists,
   async (req, res) => {
     try {
