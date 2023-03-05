@@ -1,7 +1,11 @@
 const express = require('express');
+
+const { verifyTokenIsValid } = require('../middleware');
+const { usersModel: { findUserByUsername } } = require('../models');
+
 const router = express.Router();
 
-const { usersModel: { findUserByUsername } } = require('../models');
+router.use(verifyTokenIsValid);
 
 router.get('/:username', async (req, res) => {
   try {
