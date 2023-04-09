@@ -1,11 +1,16 @@
 const express = require('express');
 
-const { verifyTokenIsValid } = require('../middleware');
-const { usersModel: { findUserByUsername } } = require('../models');
+const { verifyTokenIsValid, verifyTokenOwnerExists } = require('../middleware');
+const {
+  usersModel: {
+    findUserByUsername
+  },
+  pondSubscriptionsModel: {
+    findSubscriptionsBySubscriberID
+  }
+} = require('../models');
 
 const router = express.Router();
-
-router.use(verifyTokenIsValid);
 
 router.get('/:username', async (req, res) => {
   try {
@@ -19,6 +24,18 @@ router.get('/:username', async (req, res) => {
     res.status(200).json(user);
   } catch (e) {
     res.status(500).json({ error: e });
+  }
+});
+
+router.get('/self/subscriptions', verifyTokenIsValid, verifyTokenOwnerExists, async (req, res) => {
+  try {
+    let user = req.tokenOwner;
+    
+    let subscriptions = await findSubscriptionsBySubscriberID(user.id);
+
+    res.status(200).json(subscriptions);
+  } catch (error) {
+    res.status(500).json({ error });
   }
 });
 
